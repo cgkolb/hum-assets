@@ -64,6 +64,8 @@ const CARDS = [
       { ...base, name: `${slug}-weekly`, eb: `HUM ${k} · weekly plan` },
     ];
   }),
+  // Low-text style (round 4): headline only, nothing under 56px, so it reads at phone size.
+  { name: 'how-it-works', t: 'big', h: 'Private rides,', ht: 'done legally.', phones: ['chat'] },
   { name: 'rideshareprofessor', t: 'creator', eb: 'Recommended by The Rideshare Professor',
     h: 'Run your own private rides, at your own rates.', s: '50% off your first month with code', code: 'PROFESSOR50',
     photo: 'photos/creators/rideshare-professor.jpg' },
@@ -113,6 +115,10 @@ body.creator{background:#F8F8F8}
 .ccopy h1{font-size:58px}
 .ccopy .sub{margin-top:26px}
 .code{display:inline-block;margin-top:14px;border:3px dashed #0D0D0D;border-radius:12px;background:#fff;padding:10px 26px;font-size:36px;font-weight:900;letter-spacing:.06em}
+.logo.big{height:62px}
+.bigh{position:absolute;left:64px;top:190px;width:640px;font-size:112px;line-height:.98;letter-spacing:-.025em}
+.bigh span{color:#2A6B62}
+.bigphone{position:absolute;right:70px;top:36px;height:640px;filter:drop-shadow(0 18px 30px rgba(13,13,13,.16))}
 .clogo{position:absolute;left:556px;bottom:48px;height:46px}
 `;
 
@@ -123,6 +129,12 @@ function page(c) {
 <div class="ccopy"><div class="eb2">${esc(c.eb)}</div><h1>${esc(c.h)}</h1><div class="sub">${esc(c.s)}</div><div class="code">${esc(c.code)}</div></div>
 <img class="clogo" src="${a('black-teal-logo.png')}" alt="">`;
     return wrapDoc(body, 'creator');
+  }
+  if (c.t === 'big') {
+    body = `<div class="dots"></div><img class="logo big" src="${a('black-teal-logo.png')}" alt="">
+<h1 class="bigh">${esc(c.h)} <span>${esc(c.ht)}</span></h1>
+<img class="bigphone" src="${a(SCREENS[c.phones[0]])}" alt="">`;
+    return wrapDoc(body, '');
   }
   body += `<div class="dots"></div><img class="logo" src="${a('black-teal-logo.png')}" alt="">`;
   if (c.t === 'stat') {
